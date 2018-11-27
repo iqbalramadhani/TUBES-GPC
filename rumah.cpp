@@ -26,6 +26,11 @@ void zebracross();
 void mobil(float,float,float);
 void mobil2();
 void mobil3();
+void awan();
+void awan_tampil();
+void tanaman();
+void tampil_tanaman();
+void pagar();
 
 void blok(float tebal,int ratiol,int ratiop);
 
@@ -52,10 +57,126 @@ void display(void)
 	mobil(250,19,0);
 	//mobil(250,19,230);
 	mobil2();
-	
 	trafficlight();
 	mobil3();
+	pagar();
+	awan_tampil();
+	tampil_tanaman();
     glFlush();
+}
+
+//tampil tanaman pagar
+void tampil_tanaman()
+{
+	//tanaman rumah 1
+	glPushMatrix();
+		tanaman();	
+		glPopMatrix();
+		//tanaman rumah 2
+		glPushMatrix();
+		glTranslatef(-350.5,1.5,3);
+		tanaman();	
+	glPopMatrix();
+}
+
+
+//tanaman pagar
+void tanaman()
+{
+    glPushMatrix();
+	    glColor3ub(18,118,13);
+	    glScaled(60.5, 5, 5);
+	    glTranslatef(0.25,1.5,3);//geser
+	    glutSolidCube(3);
+    glPopMatrix();
+}
+
+
+//tampil awan
+void awan_tampil()
+{
+	//awan1	
+	glPushMatrix();
+	glTranslatef(200,250,-50);
+	awan();	
+	glPopMatrix();
+	//awan2
+	glPushMatrix();
+	glTranslatef(10,300,-150);
+	awan();	
+	glPopMatrix();
+	//awan3
+	glPushMatrix();
+	glTranslatef(-350,270,-100);
+	awan();	
+	glPopMatrix();
+}
+
+//awan
+void awan()
+{
+ glPushMatrix();
+ glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+ glColor3ub(153, 223, 255);
+ glutSolidSphere(20, 50, 50);
+ glPopMatrix();
+ glPushMatrix();
+ glTranslatef(25,0,1);
+ glutSolidSphere(10, 50, 50);
+ glPopMatrix();
+ glPushMatrix();
+ glTranslatef(-20,6,-2);
+ glutSolidSphere(14, 50, 50);
+ glPopMatrix();
+ glPushMatrix();
+ glTranslatef(-30,-3,0);
+ glutSolidSphere(14, 50, 50);
+ glPopMatrix();
+ glPushMatrix();
+ glTranslatef(15,-2,2);
+ glutSolidSphere(14, 50, 50);
+ glPopMatrix();
+}
+
+
+//pagar
+void pagar()
+{
+	//tiang pagar 1
+	glPushMatrix();
+	glColor3f(1,1,1);
+ 	glScaled(4, 10, 4);
+    glTranslatef(69,1,5);//geser
+    glutSolidCube(2);
+	glPopMatrix();
+   	//tiang pagar 2
+	glPushMatrix();
+	glColor3f(1,1,1);
+ 	glScaled(4, 10, 4);
+    glTranslatef(69,1,-48);//geser
+    glutSolidCube(2);
+	glPopMatrix();
+	//tiang pagar 3
+	glPushMatrix();
+	glColor3f(1,1,1);
+ 	glScaled(4, 10, 4);
+    glTranslatef(-19,1,-48);//geser
+    glutSolidCube(2);
+	glPopMatrix();
+	//tiang pagar 4
+	glPushMatrix();
+	glColor3f(1,1,1);
+ 	glScaled(4, 10, 4);
+    glTranslatef(-19,1,-35);//geser
+    glutSolidCube(2);
+	glPopMatrix();
+	//dinding pagar 1
+	glPushMatrix();
+	glColor3f(0.1,0.1,0.1);
+ 	glScaled(1, 8, -105);
+    glTranslatef(275,1,0.8);//geser
+    glutSolidCube(2);
+	glPopMatrix();
 }
 
 void trafficlight()
