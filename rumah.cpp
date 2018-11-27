@@ -57,7 +57,6 @@ void display(void)
 	mobil(250,19,0);
 	//mobil(250,19,230);
 	mobil2();
-	
 	trafficlight();
 	mobil3();
 	pagar();
@@ -66,6 +65,7 @@ void display(void)
     glFlush();
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 //tampil tanaman pagar
 void tampil_tanaman()
@@ -79,6 +79,20 @@ glPushMatrix();
 glTranslatef(-350.5,1.5,3);
 tanaman();	
 glPopMatrix();
+=======
+//tampil tanaman pagar
+void tampil_tanaman()
+{
+	//tanaman rumah 1
+	glPushMatrix();
+		tanaman();	
+		glPopMatrix();
+		//tanaman rumah 2
+		glPushMatrix();
+		glTranslatef(-350.5,1.5,3);
+		tanaman();	
+	glPopMatrix();
+>>>>>>> master
 }
 
 
@@ -86,10 +100,17 @@ glPopMatrix();
 void tanaman()
 {
     glPushMatrix();
+<<<<<<< HEAD
     glColor3ub(18,118,13);
     glScaled(60.5, 5, 5);
     glTranslatef(0.25,1.5,3);//geser
     glutSolidCube(3);
+=======
+	    glColor3ub(18,118,13);
+	    glScaled(60.5, 5, 5);
+	    glTranslatef(0.25,1.5,3);//geser
+	    glutSolidCube(3);
+>>>>>>> master
     glPopMatrix();
 }
 
@@ -181,7 +202,10 @@ void pagar()
 	glPopMatrix();
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 =======
 >>>>>>> master
 void trafficlight()
