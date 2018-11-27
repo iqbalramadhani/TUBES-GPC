@@ -1284,7 +1284,7 @@ int main(int argc, char** argv)
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Bus");
+    glutCreateWindow("TUBES-GPC RUMAH IDAMAN");
     glutDisplayFunc(display);
     glutSpecialFunc(keyboard_s);
     glutKeyboardFunc(keyboard);
