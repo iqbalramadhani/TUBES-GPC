@@ -17,6 +17,7 @@ void kaca_pintu(float,float);
 void pagar_atas();
 void tangga(float,float,float);
 void rumah1();
+void trafficlight();
 void rumah2();
 void jalan1();
 void jalan2();
@@ -50,11 +51,66 @@ void display(void)
 	zebracross();
 	mobil1();
 	mobil2();
+	trafficlight();
 	mobil3();
     glFlush();
     
+    
 }
+void trafficlight()
+{
+glPushMatrix();
+glTranslatef(-600,-70,60);
 
+glScaled(10.0,10.0,0.1);
+//stand
+glColor3f(0.1,0.2,0.1);
+glBegin(GL_POLYGON);
+glVertex2f(15,7);
+glVertex2f(15,8);
+glVertex2f(18,8);
+glVertex2f(18,7);
+glEnd();
+//pole
+glBegin(GL_POLYGON);
+glVertex2f(16,7);
+glVertex2f(17,8);
+glVertex2f(17,15);
+glVertex2f(16,15);
+glEnd();
+//board
+glBegin(GL_POLYGON);
+glVertex2f(15.5,15);
+glVertex2f(17.5,15);
+glVertex2f(17.5,10);
+glVertex2f(15.5,10);
+glEnd();
+//red
+glColor3f(1,0.0,0.0);
+glBegin(GL_POLYGON);
+glVertex2f(16,14.5);
+glVertex2f(17,14.5);
+glVertex2f(17,14);
+glVertex2f(16,14);
+glEnd();
+//yellow
+glColor3f(1,1,0.0);
+glBegin(GL_POLYGON);
+glVertex2f(16,13.5);
+glVertex2f(17,13.5);
+glVertex2f(17,13);
+glVertex2f(16,13);
+glEnd();
+//green
+glColor3f(0.0,1,0.0);
+glBegin(GL_POLYGON);
+glVertex2f(16,12.5);
+glVertex2f(17,12.5);
+glVertex2f(17,12);
+glVertex2f(16,12);
+glEnd();
+glPopMatrix();
+}
 void bus()
 {
 	glPushMatrix();
