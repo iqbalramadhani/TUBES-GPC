@@ -26,6 +26,7 @@ void zebracross();
 void mobil1();
 void mobil2();
 void mobil3();
+
 void blok(float tebal,int ratiol,int ratiop);
 
 //GLfloat ambient_light[]={0.3,0.3,0.45,1.0};
@@ -51,6 +52,7 @@ void display(void)
 	mobil2();
 	mobil3();
     glFlush();
+    
 }
 
 void bus()
@@ -276,6 +278,14 @@ void jalan2()
 }
 void zebracross()
 {
+	   glPushMatrix();
+    	glColor3f(1,1,1);
+    	glTranslatef(0,1,50);
+    	glTranslatef(-385,0,120);
+    	glScaled(0.1,0.01,1.7);
+    	glutSolidCube(100);
+    glPopMatrix();
+	
     glPushMatrix();
     	glColor3f(1,1,1);
     	glTranslatef(0,1,50);
@@ -1762,6 +1772,7 @@ void drawxy(int x)
 		glVertex3f(0,0,-x);
 	glEnd();	
 }
+
 
 void init(void)
 {
