@@ -1,5 +1,5 @@
 #include <windows.h>
-#include <GL/glut.h>
+#include <GL\glut.h>
 #include <stdlib.h>
 
 int maju_mundur=0,maju_mundur1=180,kiri_kanan=0;
@@ -19,6 +19,8 @@ void tangga(float,float,float);
 void rumah();
 void jalan();
 void bus();
+void mobil();
+void blok(float tebal,int ratiol,int ratiop);
 
 //GLfloat ambient_light[]={0.3,0.3,0.45,1.0};
 GLfloat ambient_light[]={0.0,0.0,0.45,1.0};//GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3
@@ -31,14 +33,14 @@ void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     
-    //drawxy(200);
+    drawxy(200);
     rumah();
     jalan();
 	bus();
+	mobil();
     glFlush();
 }
 
-	//test
 void bus()
 {
 	glPushMatrix();
@@ -233,7 +235,7 @@ void jalan()
     glPushMatrix();
     	glColor3f(0.1,0.1,0.1);
     	glTranslatef(-78,0,110);
-    	glScaled(6,0.01,.6);
+    	glScaled(10,0.01,.6);
     	glutSolidCube(100);
     glPopMatrix();
 }
@@ -1031,7 +1033,7 @@ void init(void)
     glClearColor (0.0, 0.5, 0.5, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-200.0, 200.0, -50.0, 200.0, -200.0, 200.0);
+    glOrtho(-500.0, 500.0, -50.0, 500.0, -500.0, 500.0);
     glMatrixMode(GL_MODELVIEW);
     
     /*
@@ -1125,6 +1127,156 @@ void keyboard(unsigned char key,int x, int y)
 	}
 	glutPostRedisplay();
 }
+
+void mobil()
+{
+ glPushMatrix();
+  
+  glTranslatef(230,19,0);// besar kecilnya mobil
+	glScaled(1.3,1.3,1.3);
+	glRotatef(90, 0.0f, 1.0f, 0.0f);
+	glRotatef(180, 0.0f, 1.0f, 0.0f);
+  //Loop++;
+     //glRotatef(Loop,0.9,4.0,0.6);//mobil yang berotasi
+
+ glPushMatrix();//body
+ //glpushmatrix();
+ glColor3f(0.0,0.0,9.0);
+ blok(10, 3, 2);
+ 
+ glTranslatef(0, 9, 0);
+ blok(10, 3, 2);
+ glTranslatef(10, -10,0);
+ blok(10, 5.5, 2);
+ glRotatef(-35, 0, 0, 15);
+ glTranslatef(0, 7,0);
+ blok(10, 2, 2);
+ glTranslatef(2, 4.9,-2.5);
+ glColor3f(0.9,0.9,0.9);// warna kaca
+ blok(0.5, 20, 31);
+
+ glRotatef(180, 45, -45, 0);
+ //glTranslatef(0, 10,0);
+ //blok(3, 2, 5);
+ //cylinder(2,2,30);
+ //glTranslatef(-10, -10,0);
+ //glRotatef(90, 45,-45, 0);
+ //cylinder(2,2,30);
+ //glRotatef(90, -45, 90, 90);
+ //blok(5, 3, 2);
+ 
+ glPopMatrix();
+
+ 
+ glPushMatrix();//roda
+ glColor3f(0.0,0.0,0.0);
+ glTranslatef(20, -8,-7);
+ cylinder(5, 5,3);
+
+ glColor3f(0.0,0.0,0.0);
+ glTranslatef(-20, 8,7);
+ glTranslatef(-5, -8,-7);
+ cylinder(5, 5,3);
+
+ glColor3f(0.0,0.0,0.0);
+ glTranslatef(5, 8,7);
+ glRotatef(180,0,180,0);
+ glTranslatef(3,-8,-17);
+ cylinder(5, 5,3);
+
+ glColor3f(0.0,0.0,0.0);
+ glTranslatef(-3,8,17);
+ glTranslatef(-22,-8,-17);
+ cylinder(5, 5,3);
+
+ glColor3f(1.0,1.0,1.0);
+
+ glRotatef(90,1,0,0);
+ glTranslatef(8, 2.5,-15);
+ blok(2, 4, 5);
+
+
+ glRotatef(90,0,1,0);
+ glTranslatef(0,-0.2,7);
+ blok(2, 4, 8);
+
+
+ glRotatef(0,0,0,0);
+ glTranslatef(0,19.2,0);
+ blok(2, 4, 8);
+
+ glRotatef(90,0,1,0);
+ glTranslatef(7, 0,-8);
+ blok(2, 4, 5);
+
+ glColor3f(9.9,9.9,0.0);//lampu
+ glRotatef(90,0,1,0);
+ glTranslatef(0,-3,20);
+ cylinder(2, 2,3);
+
+ glColor3f(9.9,9.9,0.0);//lampu
+ glRotatef(0,0,0,0);
+ glTranslatef(0,-12,0);
+ cylinder(2, 2,3);
+
+ glColor3f(0.0,0.0,0.0);//knalpot
+ glRotatef(0,0,0,0);
+ glTranslatef(0,0,-52);
+ cylinder(1, 1,3);
+
+ glColor3f(1.0,1.0,1.0);
+ glRotatef(90,1,0,0);
+ glTranslatef(-8,3.5,-12);
+ blok(2, 4, 8);
+
+ glColor3f(9.0,0.0,0.0);//lampu atas
+ glRotatef(0,0,0,0);
+ glTranslatef(-8,28,0);
+ cylinder(1, 1,12);
+
+
+ glPopMatrix();
+glPopMatrix();
+
+ //glFlush();
+ //glutSwapBuffers();
+
+}
+void blok(float tebal,int ratiol,int ratiop)
+{
+ float i,j;
+ glPushMatrix();
+ for(i=0;i<ratiop;i++)
+ {
+  glTranslatef(-(ratiol+1)*tebal/2,0.0,0.0);
+  for(j=0;j<ratiol;j++)
+  {
+   glTranslatef(tebal,0.0,0.0);
+   glutSolidCube(tebal);
+  }
+  glTranslatef(-(ratiol-1)*tebal/2,0.0,tebal);
+ }
+ glPopMatrix();
+}
+
+void kerucut(float ngisor, float nduwur, float dowo)
+{
+ float i;
+ glPushMatrix();
+ glTranslatef(1.0,0.0,ngisor/24);
+ glutSolidCone(ngisor,0,32,4);
+ for(i=0;i<=dowo;i+=ngisor/24)
+ {
+  glTranslatef(0.0,0.0,ngisor/24);
+  glutSolidTorus(ngisor/4,ngisor-((i*(ngisor-nduwur))/dowo),16,16);
+ }
+ glTranslatef(0.0,0.0,ngisor/4);
+ glutSolidCone(nduwur,0,20,1);
+ glColor3f(0.,1.,1.);
+ glPopMatrix();
+}
+
+
 
 int main(int argc, char** argv)
 {
