@@ -10,11 +10,13 @@ int screen_height=600;//mengatur tinggi screen
 int toleh = 25;
 void display();
 void drawxy(int);
+void pager();
 void cylinder(float rbase,float rtop,float height);
 void kaca(float);
 void pintu(float,float,float);
 void kaca_pintu(float,float);
 void pagar_atas();
+void Rumput(float x,float y,float z);
 void tangga(float,float,float);
 void rumah(float,float,float);
 void trafficlight();
@@ -42,6 +44,214 @@ GLfloat ambient_light[]={0.0,0.0,0.45,1.0};//GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL
 GLfloat  source_light[]={0.8,0.8,0.8,1.0};
 //GLfloat     light_pos[]={7.0,0.0,1.0,1.0};
 GLfloat     light_pos[]={5.0,0.0,6.0,1.0};
+void pager(float x,float y,float z)
+{
+ //Pager      
+              glEnable(GL_COLOR_MATERIAL);
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glTranslatef(7,-5.5,13);
+              glColor3f(0.3,0.2,0);
+              glScalef(15.75,0.5,0.75);
+              glutSolidCube(1);
+              glPopMatrix();
+              glDisable(GL_COLOR_MATERIAL);
+               
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glTranslatef(7,-0.5,13);
+              glColor3f(1,0,0);
+              glScalef(15.75,0.5,0.75);
+              glutSolidCube(1);
+              glPopMatrix();
+ 
+ for (float dep=0.5;dep<13;dep+=2)
+       {      
+              glEnable(GL_COLOR_MATERIAL);
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glTranslatef(dep,-3,13);
+              glColor3f(0.7,0.3,0);
+              glScalef(1,7,0.5);
+              glutSolidCube(1);
+              glPopMatrix();
+              glDisable(GL_COLOR_MATERIAL);
+       }
+ 
+ //pager depan kiri
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(-8,-5.5,13);
+              glColor3f(0.3,0.2,0);
+              glScalef(9.5,0.5,0.75);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+               
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(-8,-0.5,13);
+              glColor3f(1,0,0);
+              glScalef(9.5,0.5,0.75);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+ 
+  for (float dep2=-4;dep2>-12;dep2-=2)
+       {
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(dep2,-3,13);
+              glColor3f(0.7,0.3,0);
+              glScalef(1,7,0.5);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+       }
+ 
+  //pagar belakang
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(1.2,-5.5,-13);
+              glColor3f(0.3,0.2,0);
+              glScalef(27.8,0.5,0.75);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+               
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(1.2,-0.5,-13);
+              glColor3f(1,0,0);
+              glScalef(27.8,0.5,0.75);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+ 
+  for (float dep=-10;dep<13;dep+=2)
+       {
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(dep,-3,-13);
+              glColor3f(0.7,0.3,0);
+              glScalef(1,7,0.5);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+       }
+ 
+ //pagar samping kanan
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(14.2,-5.5,0);
+              glColor3f(0.3,0.2,0);
+              glScalef(0.75,0.5,28);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+               
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(14.2,-0.5,0);
+              glColor3f(1,0,0);
+              glScalef(0.75,0.5,28);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+ 
+  for (float samp=-13;samp<15;samp+=2)
+       {
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(14.2,-3,samp);
+              glColor3f(0.7,0.3,0);
+              glScalef(0.5,7,1);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+  }
+//pagar samping
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(-12,-5.5,0);
+              glColor3f(0.3,0.2,0);
+              glScalef(0.75,0.5,28);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+               
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(-12,-0.5,0);
+              glColor3f(1,0,0);
+              glScalef(0.75,0.5,28);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+ 
+  for (float samp=-13;samp<15;samp+=2)
+       {
+              glPushMatrix();
+              glRotatef(90, 0.0f, 1.0f, 0.0f);
+              glTranslatef(x,y,z);
+              glScalef(10,5,10);
+              glEnable(GL_COLOR_MATERIAL);
+              glTranslatef(-12,-3,samp);
+              glColor3f(0.7,0.3,0);
+              glScalef(0.5,7,1);
+              glutSolidCube(1);
+              glDisable(GL_COLOR_MATERIAL);
+              glPopMatrix();
+                }
+}
+
+void Rumput(float x,float y,float z)
+{
+    glPushMatrix();
+    	glColor3f(0,1,0.3);
+    	glTranslatef(x,y,z);
+    	glScaled(10,0.01,2.5);
+    	glutSolidCube(100);
+    glPopMatrix();
+}
 
 void pohon(float x,float y,float z)
 {
@@ -130,28 +340,32 @@ void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     
-    drawxy(200);
+    
+	  drawxy(200);
     marka_jalan();
-	rumah(0,0,-40);
-    rumah(-250,0,-40);
+	rumah(0,0,-80);
+    rumah(-350,0,-80);
+    Rumput(-78,1,-100);
     jalan_tepi(-78,0,50);
     jalan_utama();
     jalan_tepi(-78,0,290);
 	bus();
 	zebracross();
-	mobil(250,19,0);
+	mobil(250,19,-50);
 	//mobil(250,19,230);
 	mobil2();
 	trafficlight();
 	mobil3();
-	pagar();
+	
 	awan_tampil();
 	pohon(300,0,-100);
 	pohon(300,0,-200);
-	pohon(-400,0,-200);
-	pohon(-400,0,-100);
+	pohon(-500,0,-200);
+	pohon(-500,0,-100);
 	tampil_tanaman();
 	matahari();
+    glFlush();
+    pager(90,33,-310);
     glFlush();
 }
 
