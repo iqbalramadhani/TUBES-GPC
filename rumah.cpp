@@ -34,6 +34,11 @@ void awan_tampil();
 void tanaman();
 void tampil_tanaman();
 void pagar();
+void batas_jalan();
+void tampil_batas_jalan();
+void jalan_tunanetra();
+void tampil_jalan_tunanetra();
+void jalan_tunanetra_warning();
 void pohon(float x,float y,float z);
 void apartemen();
 
@@ -653,7 +658,11 @@ void display(void)
 	mobil2();
 	trafficlight();
 	mobil3();
-	
+    batas_jalan();
+    tampil_batas_jalan();
+    jalan_tunanetra();
+    tampil_jalan_tunanetra();
+    jalan_tunanetra_warning();
 	awan_tampil();
 	pohon(300,0,-100);
 	pohon(300,0,-200);
@@ -693,6 +702,178 @@ void tanaman()
     glPopMatrix();
 }
 
+/////
+// tampil pagar batas jalan
+void batas_jalan()
+{
+   glPushMatrix();
+    glTranslatef(416,20,265); 
+	glScaled(2,8,2);
+	glColor3f(0,0,0);	
+	glutSolidCube(5); 
+   glPopMatrix();
+   /////
+   glPushMatrix();
+    glTranslatef(374,30,265); 
+	glScaled(15,2,2);
+	glColor3f(1.0,0,0);	
+	glutSolidCube(5); 
+   glPopMatrix();
+   
+   glPushMatrix();
+    glTranslatef(374,13,265); 
+	glScaled(15,2,2);
+	glColor3f(1.0,0,0);	
+	glutSolidCube(5); 
+   glPopMatrix();
+}
+
+void tampil_batas_jalan()
+{
+	glPushMatrix();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+	glPopMatrix();
+	
+	//tiang keluar zebra cross
+	glPushMatrix();
+    glTranslatef(-348,20,265); 
+	glScaled(2,8,2);
+	glColor3f(0,0,0);	
+	glutSolidCube(5); 
+   glPopMatrix();
+   
+   //tiang lanjutan
+   glPushMatrix();
+		glTranslatef(-842,0,0); 
+		batas_jalan();
+		glTranslatef(-85,0,0); 
+		batas_jalan();
+	glPopMatrix();
+}
+
+//tampilan jalan untuk tunanetra
+void jalan_tunanetra()
+{
+	//tembok kiri bawah
+     glPushMatrix();
+    	glColor3f(225,225,0);
+    	glTranslatef(395,1,294);
+    	glScaled(8,0.1,8);
+    	glutSolidCube(5);
+    glPopMatrix();
+    
+    glPushMatrix();
+    	glColor3f(2,2,2);
+    	glTranslatef(395,2,281);
+    	glScaled(6,0.1,1);
+    	glutSolidCube(5);
+    glPopMatrix();
+    
+    glPushMatrix();
+    	glColor3f(2,2,2);
+    	glTranslatef(395,2,290);
+    	glScaled(6,0.1,1);
+    	glutSolidCube(5);
+    glPopMatrix();
+    
+    glPushMatrix();
+    	glColor3f(2,2,2);
+    	glTranslatef(395,2,299);
+    	glScaled(6,0.1,1);
+    	glutSolidCube(5);
+    glPopMatrix();
+
+	glPushMatrix();
+    	glColor3f(2,2,2);
+    	glTranslatef(395,2,308);
+    	glScaled(6,0.1,1);
+    	glutSolidCube(5);
+    glPopMatrix();
+}
+
+
+void jalan_tunanetra_warning()
+{
+	//tembok kiri bawah
+     glPushMatrix();
+    	glColor3f(225,0,0);
+    	glTranslatef(395,1,294);
+    	glScaled(8,0.1,8);
+    	glutSolidCube(5);
+    glPopMatrix();
+}
+
+void tampil_jalan_tunanetra()
+{
+	glPushMatrix();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra_warning();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra_warning();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();	
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();	
+		glTranslatef(-40,0,0); 
+		jalan_tunanetra();		
+	glPopMatrix();
+
+}
+
+//
 
 //tampil awan
 void awan_tampil()
