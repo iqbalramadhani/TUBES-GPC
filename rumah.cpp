@@ -3,7 +3,9 @@
 #include <stdlib.h>
 
 int maju_mundur=0,maju_mundur1=180,kiri_kanan=0;
-bool gerak_bus=false;
+int keceptan_mobil=10,gerak_m=0;
+int mm[] = {-50,230,230},mm1[]={250,250,0},kk[] = {-90,190,0}; 
+bool gerak_bus=false,gerak_mobil=false;
 float xyz = 600,minusy=400;
 
 int toleh = 25;
@@ -26,7 +28,7 @@ void jalan_utama();
 void bus();
 void marka_jalan();
 void zebracross();
-void mobil(float x,float y ,float z);
+void mobil(float,int);
 void mobil2(float x,float y,float z);
 void mobil3(float x,float y,float z);
 void awan();
@@ -48,6 +50,7 @@ void kursi();
 void tampil_kursi(float x,float y,float z);
 void tampil_kursi2(float x,float y,float z);
 void apartemen();
+void init();
 
 void blok(float tebal,int ratiol,int ratiop);
 
@@ -356,23 +359,16 @@ void display(void)
 	rumah(0,0,-40);
     rumah(-250,0,-40);
     Rumput(-78,1,-100);
-    jalan_tepi(-78,0,50);
+	jalan_tepi(-78,0,50);
     jalan_utama();
     jalan_apartemen(-78,0,350);
-    mobil2(90,0,0);
 	jalan_tepi(-78,0,290);
 	bus();
 	zebracross();
-	mobil(250,19,-50);
-	//mobil(250,19,230);
-	mobil2(0,0,0);
+	for(int i=0;i<3;i++){
+		mobil(19,i);	
+	}
 	trafficlight();
-	/*
-	mobil3(-360,0,0);
-	mobil3(-270,0,0);
-	mobil3(-180,0,0);
-	mobil3(-90,0,0);
-	*/
 	awan_tampil();
 	pohon(300,0,-100);
 	pohon(300,0,-200);
@@ -393,7 +389,7 @@ void display(void)
 	tampil_kursi2(0,0,550);
 	apartemen();
     pager(90,33,-310);
-    kincir(0,20,70,-90);
+	kincir(0,20,70,-90);
     kincir(-40,20,70,90);
     glDisable(GL_COLOR_MATERIAL); //menonaktifkan fungsi untuk memberikan warna pada material 
 	glFlush();
@@ -2403,6 +2399,14 @@ void keyboard_s(int key,int x,int y)
 		case GLUT_KEY_DOWN:
 			glRotated(1,1,0,0);
 			break;
+		case GLUT_KEY_PAGE_UP:
+			xyz-=10;
+			init();
+			break;
+		case GLUT_KEY_PAGE_DOWN:
+			xyz+=10;
+			init();
+			break;
 	}
 	glutPostRedisplay();
 }
@@ -2416,26 +2420,33 @@ void keyboard(unsigned char key,int x, int y)
 			{
 				kiri_kanan=-90;
 				maju_mundur1--;
+			}else if(gerak_mobil==true){
+				mm1[gerak_m]-=keceptan_mobil;
+				kk[gerak_m]=-180;
 			}else{
-				glTranslatef(-1,0,0);
+				glTranslatef(-10,0,0);
 			}
 			break;
 		case 'd' :
-			if(gerak_bus==true)
-			{
+			if(gerak_bus==true){
 				kiri_kanan=90;
 				maju_mundur1++;
+			}else if(gerak_mobil==true){
+				mm1[gerak_m]+=keceptan_mobil;
+				kk[gerak_m]=0;
 			}else{
-				glTranslatef(1,0,0);
+				glTranslatef(10,0,0);
 			}
 			break;
 		case 'w' :
-			if(gerak_bus==true)
-			{
+			if(gerak_bus==true){
 				kiri_kanan=0;
 				maju_mundur++;
+			}else if(gerak_mobil==true){
+				mm[gerak_m]+=keceptan_mobil;
+				kk[gerak_m]=-90;
 			}else{
-				glTranslatef(0,0,-1);	
+				glTranslatef(0,0,-10);	
 			}
 			
 			break;
@@ -2444,362 +2455,155 @@ void keyboard(unsigned char key,int x, int y)
 			{
 				kiri_kanan=180;
 				maju_mundur--;
+			}else if(gerak_mobil==true){
+				mm[gerak_m]-=keceptan_mobil;
+				kk[gerak_m]=90;
 			}else{
-				glTranslatef(0,0,1);
+				glTranslatef(0,0,10);
 			}	
 			break;
 		case '+' :
-			glTranslatef(0,1,0);
+			glTranslatef(0,10,0);
 			break;
 		case '-' :
-			glTranslatef(0,-1,0);
+			glTranslatef(0,-10,0);
 			break;
 		case 'b':
-			if(gerak_bus==true){
+			if(gerak_bus==true)
 				gerak_bus=false;
-			}else{
+			else
 				gerak_bus=true;
+			break;
+		case 'm':
+			if(gerak_mobil==false){
+				gerak_mobil=true;
+			}else{
+				gerak_mobil=false;
 			}
-			//++;
+			break;
+		case '1' :
+			if(gerak_mobil==true)
+				gerak_m=0;
+			break;
+		case '2' :
+			if(gerak_mobil==true)	
+				gerak_m=1;
+			break;
+		case '3' :
+			gerak_m=2;
+			break;
+			
 	}
 	glutPostRedisplay();
 }
 
-void mobil(float x,float y,float z)
+void mobil(float y,int i)
 {
  	glPushMatrix();
-	  	glTranslatef(x,y,z);// besar kecilnya mobil
+	  	glTranslatef(mm1[i],y,mm[i]);// besar kecilnya mobil
 		glScaled(1.3,1.3,1.3);
-		glRotatef(90, 0.0f, 1.0f, 0.0f);
-		glRotatef(180, 0.0f, 1.0f, 0.0f);
-		  //Loop++;
-		     //glRotatef(Loop,0.9,4.0,0.6);//mobil yang berotasi
-		
-		 glPushMatrix();//body
-		 //glpushmatrix();
-			 glColor3f(0.0,0.0,9.0);
-			 blok(10, 3, 2);
-			 
-			 glTranslatef(0, 9, 0);
-			 blok(10, 3, 2);
-			 glTranslatef(10, -10,0);
-			 blok(10, 5.5, 2);
-			 glRotatef(-35, 0, 0, 15);
-			 glTranslatef(0, 7,0);
-			 blok(10, 2, 2);
-			 glTranslatef(2, 4.9,-2.5);
-			 glColor3f(0.9,0.9,0.9);// warna kaca
-			 blok(0.5, 20, 31);
-			
-			 glRotatef(180, 45, -45, 0);
-			 //glTranslatef(0, 10,0);
-			 //blok(3, 2, 5);
-			 //cylinder(2,2,30);
-			 //glTranslatef(-10, -10,0);
-			 //glRotatef(90, 45,-45, 0);
-			 //cylinder(2,2,30);
-			 //glRotatef(90, -45, 90, 90);
-			 //blok(5, 3, 2);
-		 
-		 glPopMatrix();	
-		 
-		 glPushMatrix();//roda
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(20, -8,-7);
-			 cylinder(5, 5,3);
-			
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(-20, 8,7);
-			 glTranslatef(-5, -8,-7);
-			 cylinder(5, 5,3);
-			
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(5, 8,7);
-			 glRotatef(180,0,180,0);
-			 glTranslatef(3,-8,-17);
-			 cylinder(5, 5,3);
-			
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(-3,8,17);
-			 glTranslatef(-22,-8,-17);
-			 cylinder(5, 5,3);
-			
-			 glColor3f(1.0,1.0,1.0);
-			
-			 glRotatef(90,1,0,0);
-			 glTranslatef(8, 2.5,-15);
-			 blok(2, 4, 5);
-			
-			
-			 glRotatef(90,0,1,0);
-			 glTranslatef(0,-0.2,7);
-			 blok(2, 4, 8);
-			
-			
-			 glRotatef(0,0,0,0);
-			 glTranslatef(0,19.2,0);
-			 blok(2, 4, 8);
-			
-			 glRotatef(90,0,1,0);
-			 glTranslatef(7, 0,-8);
-			 blok(2, 4, 5);
-			
-			 glColor3f(9.9,9.9,0.0);//lampu
-			 glRotatef(90,0,1,0);
-			 glTranslatef(0,-3,20);
-			 cylinder(2, 2,3);
-			
-			 glColor3f(9.9,9.9,0.0);//lampu
-			 glRotatef(0,0,0,0);
-			 glTranslatef(0,-12,0);
-			 cylinder(2, 2,3);
-			
-			 glColor3f(0.0,0.0,0.0);//knalpot
-			 glRotatef(0,0,0,0);
-			 glTranslatef(0,0,-52);
-			 cylinder(1, 1,3);
-			
-			 glColor3f(1.0,1.0,1.0);
-			 glRotatef(90,1,0,0);
-			 glTranslatef(-8,3.5,-12);
-			 blok(2, 4, 8);
-			
-			 glColor3f(9.0,0.0,0.0);//lampu atas
-			 glRotatef(0,0,0,0);
-			 glTranslatef(-8,28,0);
-			 cylinder(1, 1,12);
-		 glPopMatrix();
-	glPopMatrix();
-
- //glFlush();
- //glutSwapBuffers();
-
-}
-
-void mobil2(float x,float y,float z)
-{
-	glPushMatrix();
-	glTranslatef(x,y,z);
-	  	glTranslatef(250,19,230);// besar kecilnya mobil
-		glScaled(1.3,1.3,1.3);
-		//glRotatef(90, 0.0f, 1.0f, 0.0f);
-		//glRotatef(180, 0.0f, 1.0f, 0.0f);
-	  	//Loop++;
-	    //glRotatef(Loop,0.9,4.0,0.6);//mobil yang berotasi
-		
+		glRotatef(kk[i], 0.0f, 1.0f, 0.0f);
 		glPushMatrix();//body
-			 //glpushmatrix();
-			 glColor3f(0.0,0.0,9.0);
-			 blok(10, 3, 2);
-			 
-			 glTranslatef(0, 9, 0);
-			 blok(10, 3, 2);
-			 glTranslatef(10, -10,0);
-			 blok(10, 5.5, 2);
-			 glRotatef(-35, 0, 0, 15);
-			 glTranslatef(0, 7,0);
-			 blok(10, 2, 2);
-			 glTranslatef(2, 4.9,-2.5);
-			 glColor3f(0.9,0.9,0.9);// warna kaca
-			 blok(0.5, 20, 31);
+			//glpushmatrix();
+			glColor3f(0.0,0.0,9.0);
+			blok(10, 3, 2);
 			
-			 glRotatef(180, 45, -45, 0);
-			 //glTranslatef(0, 10,0);
-			 //blok(3, 2, 5);
-			 //cylinder(2,2,30);
-			 //glTranslatef(-10, -10,0);
-			 //glRotatef(90, 45,-45, 0);
-			 //cylinder(2,2,30);
-			 //glRotatef(90, -45, 90, 90);
-			 //blok(5, 3, 2);
-		 glPopMatrix();
-		 
-		 glPushMatrix();//roda
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(20, -8,-7);
-			 cylinder(5, 5,3);
+			glTranslatef(0, 9, 0);
+			blok(10, 3, 2);
+			glTranslatef(10, -10,0);
+			blok(10, 5.5, 2);
+			glRotatef(-35, 0, 0, 15);
+			glTranslatef(0, 7,0);
+			blok(10, 2, 2);
+			glTranslatef(2, 4.9,-2.5);
+			glColor3f(0.9,0.9,0.9);// warna kaca
+			blok(0.5, 20, 31);
 			
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(-20, 8,7);
-			 glTranslatef(-5, -8,-7);
-			 cylinder(5, 5,3);
+			glRotatef(180, 45, -45, 0);
+			//glTranslatef(0, 10,0);
+			//blok(3, 2, 5);
+			//cylinder(2,2,30);
+			//glTranslatef(-10, -10,0);
+			//glRotatef(90, 45,-45, 0);
+			//cylinder(2,2,30);
+			//glRotatef(90, -45, 90, 90);
+			//blok(5, 3, 2);
 			
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(5, 8,7);
-			 glRotatef(180,0,180,0);
-			 glTranslatef(3,-8,-17);
-			 cylinder(5, 5,3);
+		glPopMatrix();	
 			
-			 glColor3f(0.0,0.0,0.0);
-			 glTranslatef(-3,8,17);
-			 glTranslatef(-22,-8,-17);
-			 cylinder(5, 5,3);
+		glPushMatrix();//roda
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(20, -8,-7);
+			cylinder(5, 5,3);
 			
-			 glColor3f(1.0,1.0,1.0);
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(-20, 8,7);
+			glTranslatef(-5, -8,-7);
+			cylinder(5, 5,3);
 			
-			 glRotatef(90,1,0,0);
-			 glTranslatef(8, 2.5,-15);
-			 blok(2, 4, 5);
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(5, 8,7);
+			glRotatef(180,0,180,0);
+			glTranslatef(3,-8,-17);
+			cylinder(5, 5,3);
 			
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(-3,8,17);
+			glTranslatef(-22,-8,-17);
+			cylinder(5, 5,3);
 			
-			 glRotatef(90,0,1,0);
-			 glTranslatef(0,-0.2,7);
-			 blok(2, 4, 8);
+			glColor3f(1.0,1.0,1.0);
+			
+			glRotatef(90,1,0,0);
+			glTranslatef(8, 2.5,-15);
+			blok(2, 4, 5);
 			
 			
-			 glRotatef(0,0,0,0);
-			 glTranslatef(0,19.2,0);
-			 blok(2, 4, 8);
+			glRotatef(90,0,1,0);
+			glTranslatef(0,-0.2,7);
+			blok(2, 4, 8);
 			
-			 glRotatef(90,0,1,0);
-			 glTranslatef(7, 0,-8);
-			 blok(2, 4, 5);
 			
-			 glColor3f(9.9,9.9,0.0);//lampu
-			 glRotatef(90,0,1,0);
-			 glTranslatef(0,-3,20);
-			 cylinder(2, 2,3);
+			glRotatef(0,0,0,0);
+			glTranslatef(0,19.2,0);
+			blok(2, 4, 8);
 			
-			 glColor3f(9.9,9.9,0.0);//lampu
-			 glRotatef(0,0,0,0);
-			 glTranslatef(0,-12,0);
-			 cylinder(2, 2,3);
+			glRotatef(90,0,1,0);
+			glTranslatef(7, 0,-8);
+			blok(2, 4, 5);
 			
-			 glColor3f(0.0,0.0,0.0);//knalpot
-			 glRotatef(0,0,0,0);
-			 glTranslatef(0,0,-52);
-			 cylinder(1, 1,3);
+			glColor3f(9.9,9.9,0.0);//lampu
+			glRotatef(90,0,1,0);
+			glTranslatef(0,-3,20);
+			cylinder(2, 2,3);
 			
-			 glColor3f(1.0,1.0,1.0);
-			 glRotatef(90,1,0,0);
-			 glTranslatef(-8,3.5,-12);
-			 blok(2, 4, 8);
+			glColor3f(9.9,9.9,0.0);//lampu
+			glRotatef(0,0,0,0);
+			glTranslatef(0,-12,0);
+			cylinder(2, 2,3);
 			
-			 glColor3f(9.0,0.0,0.0);//lampu atas
-			 glRotatef(0,0,0,0);
-			 glTranslatef(-8,28,0);
-			 cylinder(1, 1,12);
-		 glPopMatrix();
+			glColor3f(0.0,0.0,0.0);//knalpot
+			glRotatef(0,0,0,0);
+			glTranslatef(0,0,-52);
+			cylinder(1, 1,3);
+			
+			glColor3f(1.0,1.0,1.0);
+			glRotatef(90,1,0,0);
+			glTranslatef(-8,3.5,-12);
+			blok(2, 4, 8);
+			
+			glColor3f(9.0,0.0,0.0);//lampu atas
+			glRotatef(0,0,0,0);
+			glTranslatef(-8,28,0);
+			cylinder(1, 1,12);
+		glPopMatrix();
 	glPopMatrix();
 
  //glFlush();
  //glutSwapBuffers();
 
 }
-void mobil3(float x,float y,float z)
-{
- glPushMatrix();
-  glTranslatef(x,y,z);
-  glTranslatef(70,19,150);// besar kecilnya mobil
-	glScaled(1.3,1.3,1.3);
-	//glRotatef(90, 0.0f, 1.0f, 0.0f);
-	glRotatef(180, 0.0f, 1.0f, 0.0f);
-  //Loop++;
-     //glRotatef(Loop,0.9,4.0,0.6);//mobil yang berotasi
 
- glPushMatrix();//body
- //glpushmatrix();
- glColor3f(0.0,0.0,9.0);
- blok(10, 3, 2);
- 
- glTranslatef(0, 9, 0);
- blok(10, 3, 2);
- glTranslatef(10, -10,0);
- blok(10, 5.5, 2);
- glRotatef(-35, 0, 0, 15);
- glTranslatef(0, 7,0);
- blok(10, 2, 2);
- glTranslatef(2, 4.9,-2.5);
- glColor3f(0.9,0.9,0.9);// warna kaca
- blok(0.5, 20, 31);
-
- glRotatef(180, 45, -45, 0);
- //glTranslatef(0, 10,0);
- //blok(3, 2, 5);
- //cylinder(2,2,30);
- //glTranslatef(-10, -10,0);
- //glRotatef(90, 45,-45, 0);
- //cylinder(2,2,30);
- //glRotatef(90, -45, 90, 90);
- //blok(5, 3, 2);
- 
- glPopMatrix();
-
- 
- glPushMatrix();//roda
- glColor3f(0.0,0.0,0.0);
- glTranslatef(20, -8,-7);
- cylinder(5, 5,3);
-
- glColor3f(0.0,0.0,0.0);
- glTranslatef(-20, 8,7);
- glTranslatef(-5, -8,-7);
- cylinder(5, 5,3);
-
- glColor3f(0.0,0.0,0.0);
- glTranslatef(5, 8,7);
- glRotatef(180,0,180,0);
- glTranslatef(3,-8,-17);
- cylinder(5, 5,3);
-
- glColor3f(0.0,0.0,0.0);
- glTranslatef(-3,8,17);
- glTranslatef(-22,-8,-17);
- cylinder(5, 5,3);
-
- glColor3f(1.0,1.0,1.0);
-
- glRotatef(90,1,0,0);
- glTranslatef(8, 2.5,-15);
- blok(2, 4, 5);
-
-
- glRotatef(90,0,1,0);
- glTranslatef(0,-0.2,7);
- blok(2, 4, 8);
-
-
- glRotatef(0,0,0,0);
- glTranslatef(0,19.2,0);
- blok(2, 4, 8);
-
- glRotatef(90,0,1,0);
- glTranslatef(7, 0,-8);
- blok(2, 4, 5);
-
- glColor3f(9.9,9.9,0.0);//lampu
- glRotatef(90,0,1,0);
- glTranslatef(0,-3,20);
- cylinder(2, 2,3);
-
- glColor3f(9.9,9.9,0.0);//lampu
- glRotatef(0,0,0,0);
- glTranslatef(0,-12,0);
- cylinder(2, 2,3);
-
- glColor3f(0.0,0.0,0.0);//knalpot
- glRotatef(0,0,0,0);
- glTranslatef(0,0,-52);
- cylinder(1, 1,3);
-
- glColor3f(1.0,1.0,1.0);
- glRotatef(90,1,0,0);
- glTranslatef(-8,3.5,-12);
- blok(2, 4, 8);
-
- glColor3f(9.0,0.0,0.0);//lampu atas
- glRotatef(0,0,0,0);
- glTranslatef(-8,28,0);
- cylinder(1, 1,12);
-
-
- glPopMatrix();
-glPopMatrix();
-
- //glFlush();
- //glutSwapBuffers();
-
-}
 void blok(float tebal,int ratiol,int ratiop)
 {
  float i,j;
@@ -2842,6 +2646,7 @@ void reshape (int w, int h)
 	glOrtho(-xyz, xyz, -minusy, xyz, -xyz, xyz); 
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 
+	gluLookAt (0, 5, 0, 0, 0, 100.0, 0.0, 1.0, 0.0); 
 	//gluLookAt (0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 10.0, 0.0); 
 } 
 
@@ -2871,7 +2676,7 @@ void init(void)
 	glClearColor (0.0, 0.5, 0.5, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-xyz, xyz, -minusy, xyz, -xyz, xyz);
+    glOrtho(-xyz, xyz, -xyz, xyz, -xyz, xyz);
     glMatrixMode(GL_MODELVIEW);
     
     
