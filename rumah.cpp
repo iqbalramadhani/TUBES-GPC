@@ -6,6 +6,7 @@ int maju_mundur=0,maju_mundur1=180,kiri_kanan=0;
 bool gerak_bus=false;
 int screen_width=500;//mengatur lebar screen
 int screen_height=600;//mengatur tinggi screen
+float xyz = 300,minusy=200;
 
 int toleh = 25;
 void display();
@@ -31,22 +32,18 @@ void awan_tampil();
 void tanaman();
 void tampil_tanaman();
 void pagar();
-
+void kincir(float,float,float,float);
+void bilah (float,float,float,int);
 void blok(float tebal,int ratiol,int ratiop);
-
-//GLfloat ambient_light[]={0.3,0.3,0.45,1.0};
-GLfloat ambient_light[]={0.0,0.0,0.45,1.0};//GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL_LIGHT3
-//GLfloat  source_light[]={0.9,0.8,0.8,1.0};
-GLfloat  source_light[]={0.8,0.8,0.8,1.0};
-//GLfloat     light_pos[]={7.0,0.0,1.0,1.0};
-GLfloat     light_pos[]={5.0,0.0,6.0,1.0};
  
 void display(void)
 {
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    //glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_COLOR_MATERIAL); //mengaktifkan fungsi untuk memberikan warna pada material
+	glColorMaterial(GL_FRONT, GL_DIFFUSE); //parameter-parameter fungsi warna material 
     
-    drawxy(200);
-    
+    drawxy(500);
 	rumah(0,0,-40);
     rumah(-250,0,-40);
     jalan_tepi(-78,0,50);
@@ -62,8 +59,59 @@ void display(void)
 	pagar();
 	awan_tampil();
 	tampil_tanaman();
-    glFlush();
+    kincir(0,20,70,-90);
+    kincir(-40,20,70,90);
+    glDisable(GL_COLOR_MATERIAL); //menonaktifkan fungsi untuk memberikan warna pada material 
+	glFlush();
+	glutPostRedisplay(); 
 }
+
+void kincir(float x,float y,float z,float arah)
+{
+	const double t= glutGet(GLUT_ELAPSED_TIME)/2000.0; 
+	glPushMatrix();
+		glTranslatef(x,y,z);
+		glColor3ub(255,255,255);
+		glPushMatrix();
+			glScaled(.1,2,.1);
+			glutSolidCube(20);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(0,18,0);
+			cylinder(1,1,5);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(0,-20,0);
+			glScaled(.3,.05,.3);
+			glutSolidCube(20);
+		glPopMatrix();
+		glPushMatrix();
+			glTranslatef(0,18,3);
+			glRotatef(t*arah,0.0,0.0,1);
+			bilah(2,25,3,5);
+		glPopMatrix();
+	glPopMatrix();
+}
+
+void bilah (float r_inner,float r_outer,float tebal,int batang)
+	{
+	float i;
+	glPushMatrix();
+	glTranslatef(0.0,0.0,-tebal/4);
+	cylinder(r_inner,r_inner,tebal);
+	glTranslatef(0.0,0.0,tebal/2);
+	glRotatef(90,0.0,1.0,0.0);
+	for(i=0;i<batang;i++)
+	{
+	glTranslatef(0.0,0.0,r_inner);
+	glRotatef(315,0.0,0.0,1.0);
+	blok(0.5,r_inner*4.5,(r_outer-r_inner+(r_inner/4))*2);
+	glRotatef(45,0.0,0.0,1.0);
+	glTranslatef(0.0,0.0,-r_inner);
+	glRotatef(360/batang,1.0,0.0,0.0);
+	}
+	glPopMatrix();
+	}
 
 //tampil tanaman pagar
 void tampil_tanaman()
@@ -1309,29 +1357,6 @@ void drawxy(int x)
 	glEnd();	
 }
 
-
-void init(void)
-{
-    glClearColor (0.0, 0.5, 0.5, 0.0);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(-500.0, 500.0, -100.0, 500.0, -500.0, 500.0);
-    glMatrixMode(GL_MODELVIEW);
-    
-    /*
-    glEnable (GL_LIGHTING); // pemanggilan parameter lihghting
-	glLightModelfv  (GL_LIGHT_MODEL_AMBIENT,ambient_light);
-	//glLightfv (GL_LIGHT0,GL_DIFFUSE,source_light);
-	//glLightfv (GL_LIGHT0,GL_POSITION,light_pos);
-	glEnable (GL_LIGHT0);
-	glEnable (GL_COLOR_MATERIAL);
-	glColorMaterial (GL_FRONT,GL_AMBIENT_AND_DIFFUSE);
-    */
-    glShadeModel (GL_FLAT);
-    glEnable(GL_DEPTH_TEST);
-    
-}
-
 void keyboard_s(int key,int x,int y)
 {
 	switch(key)
@@ -1778,19 +1803,65 @@ void kerucut(float ngisor, float nduwur, float dowo)
  glPopMatrix();
 }
 
+void reshape (int w, int h) 
+{ 
+	glViewport (0, 0, (GLsizei) w, (GLsizei) h); 
+	glMatrixMode (GL_PROJECTION); 
+	glLoadIdentity(); 
+	glOrtho(-xyz, xyz, -minusy, xyz, -xyz, xyz); 
+	glMatrixMode(GL_MODELVIEW); 
+	glLoadIdentity(); 
+	//gluLookAt (0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 10.0, 0.0); 
+} 
+
+void init(void)
+{
+	/*
+    GLfloat mat_specular[] = { 2.0, 1.0, 1.0, 1.0 }; //parameter cahaya specular 
+	GLfloat mat_shininess[] = { 100.0 }; //parameter shininess 
+	GLfloat light_position[] = { 1.0, 0.5, 1.0, 1.0 }; //parameter posisi pencahayaan 
+	glClearColor (0.0, 0.5, 0.5, 0.0);
+	//glShadeModel (GL_SMOOTH); //mengaktifkan shade model 
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular); 
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess); 
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position); 
+	glEnable(GL_LIGHTING); //mengaktifkan pencahayaan 
+	glEnable(GL_LIGHT0); //mengaktifkan sumber cayaha 
+	glEnable(GL_NORMALIZE); 
+	glShadeModel(GL_SMOOTH); //add positioned light 
+	GLfloat lightColor0[] = {0.7f, 0.7f, 0.7f, 1.0f}; 
+	GLfloat lightPos0[] = {5.0f, 7.0f, 5.0f, 1.0f}; 
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightColor0); 
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos0); 
+	glPopMatrix(); 
+	glEnable(GL_DEPTH_TEST);
+	*/
+	
+	glClearColor (0.0, 0.5, 0.5, 0.0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-xyz, xyz, -minusy, xyz, -xyz, xyz);
+    glMatrixMode(GL_MODELVIEW);
+    
+    
+    glShadeModel (GL_FLAT);
+    glEnable(GL_DEPTH_TEST);
+    
+}
 
 
 int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH);
+    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH); 
     glutInitWindowSize(800, 600);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("TUBES-GPC RUMAH IDAMAN");
-    glutDisplayFunc(display);
     glutSpecialFunc(keyboard_s);
     glutKeyboardFunc(keyboard);
     init();
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape); 
     glutMainLoop();
     return 0;
  }
