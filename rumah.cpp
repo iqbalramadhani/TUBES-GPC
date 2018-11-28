@@ -35,6 +35,7 @@ void tanaman();
 void tampil_tanaman();
 void pagar();
 void pohon(float x,float y,float z);
+void apartemen();
 
 void blok(float tebal,int ratiol,int ratiop);
 
@@ -44,6 +45,302 @@ GLfloat ambient_light[]={0.0,0.0,0.45,1.0};//GL_LIGHT0, GL_LIGHT1, GL_LIGHT2, GL
 GLfloat  source_light[]={0.8,0.8,0.8,1.0};
 //GLfloat     light_pos[]={7.0,0.0,1.0,1.0};
 GLfloat     light_pos[]={5.0,0.0,6.0,1.0};
+
+void apartemen()
+{
+	//glPushMatrix();
+	  //  glColor3ub(255, 223, 255);
+	  //  glScaled(70, 26,10);//ukur
+	    //glTranslatef(0,5,-50);//geser
+	    //glutSolidCube(10);
+    //glPopMatrix();
+    
+    glPushMatrix();//gedungkiri
+	    glColor3ub(255, 223, 255);
+	    glScaled(50, 26,10);//ukur
+	    glTranslatef(-2,5,-50);//geser
+	    glutSolidCube(10);
+    glPopMatrix();
+    
+     glPushMatrix();//gedungkiri
+	    glColor3ub(255, 223, 255);
+	    glScaled(20, 13.5,10);//ukur
+	    glTranslatef(13,12,-50);//geser
+	    glutSolidCube(10);
+    glPopMatrix();
+    
+    glPushMatrix();//pintu
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 15,10);
+	    glTranslatef(11,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//ataspintu
+	    glColor3ub(1, 1, 1);
+	    glScaled(20, 40,10);
+	    glTranslatef(5.5,5,-45);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atap pintu
+	    glColor3ub(1, 1, 1);
+	    glScaled(20, 2,20);
+	    glTranslatef(5.5,50,-20);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//bawah atap pintu
+	    glColor3ub(1, 1, 1);
+	    glScaled(20, 2,20);
+	    glTranslatef(5.5,0,-20);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//tiang pintu
+	    glColor3ub(4, 4, 4);
+	    glScaled(2, 20,2);
+	    glTranslatef(35,2.5,-180);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//tiang pintu
+	    glColor3ub(4, 4, 4);
+	    glScaled(2, 20,2);
+	    glTranslatef(75,2.5,-180);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    
+    glPushMatrix();
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 50,10);
+	    glTranslatef(-85,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 50,10);
+	    glTranslatef(-60,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 50,10);
+	    glTranslatef(-35,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 50,10);
+	    glTranslatef(-10,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 50,10);
+	    glTranslatef(15,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 50,10);
+	    glTranslatef(40,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    ////glPushMatrix();
+	//    glColor3ub(1, 1, 1);
+	//    glScaled(4, 50,10);
+	///    glTranslatef(65,2.5,-47);//geser
+	//    glutSolidCube(5);
+   /// glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 45,10);
+	    glTranslatef(90,2.5,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    
+    glPushMatrix();//belakang gedung
+	    glColor3ub(1, 1, 1);
+	    glScaled(4, 45,10);
+	    glTranslatef(90,2.5,-55);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    
+    glPushMatrix();//bawah1
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-29,6,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//bawah2
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	   glTranslatef(-19,6,-47);//geser
+	   glutSolidCube(5);
+    glPopMatrix();
+     // glPushMatrix();//gednonjolkiri
+	  //  glColor3ub(255, 223, 255);
+	 ////   glScaled(20, 52,25);
+	 ///   glTranslatef(-9.5,2.5,-17.7);//geser
+	 ///   glutSolidCube(5);
+   /// glPopMatrix();
+    glPushMatrix();//bawah3
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-9,6,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//bawah
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(1,6,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//bawah
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(11,6,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+  //  glPushMatrix();//bawah
+//	    glColor3ub(1, 1, 1);
+//	    glScaled(10, 10,10);
+//	    glTranslatef(21,6,-47);//geser
+//	    glutSolidCube(5);
+ //   glPopMatrix();
+   // glPushMatrix();//bawah
+//	    glColor3ub(1, 1, 1);
+//	    glScaled(10, 10,10);
+//	    glTranslatef(31,6,-47);//geser
+//	    glutSolidCube(5);
+   // glPopMatrix();
+    
+    glPushMatrix();//atas2
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-29,14,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atas2
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-19,14,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atas2
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-9,14,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atas2
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(1,14,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+     glPushMatrix();//atas2
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(11,14,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+   // glPushMatrix();//atas2
+//	    glColor3ub(1, 1, 1);
+//	    glScaled(10, 10,10);
+//	    glTranslatef(21,14,-47);//geser
+//	    glutSolidCube(5);
+ //   glPopMatrix();
+  //  glPushMatrix();//atas2
+//	    glColor3ub(1, 1, 1);
+//	    glScaled(10, 10,10);
+//	    glTranslatef(31,14,-47);//geser
+//	    glutSolidCube(5);
+  //  glPopMatrix();
+   
+   glPushMatrix();//atas3
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-29,22,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atas3
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-19,22,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atas3
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(-9,22,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atas3
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(1,22,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atas3
+	    glColor3ub(1, 1, 1);
+	    glScaled(10, 10,10);
+	    glTranslatef(11,22,-47);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+   // glPushMatrix();//atas3
+//	    glColor3ub(1, 1, 1);
+//	    glScaled(10, 10,10);
+//	    glTranslatef(21,22,-47);//geser
+	//    glutSolidCube(5);
+  //  glPopMatrix();
+    //glPushMatrix();//atas3
+	 //   glColor3ub(1, 1, 1);
+	//    glScaled(10, 10,10);
+	 //   glTranslatef(31,22,-47);//geser
+	//    glutSolidCube(5);
+   // glPopMatrix();
+    
+glPushMatrix();//banner
+	   glColor3ub(1, 1, 1);
+	  glScaled(27, 20,10);
+	   glTranslatef(9.5,8,-47);//geser
+	   glutSolidCube(5);
+    glPopMatrix();
+
+    glPushMatrix();//dasar
+	    glColor3ub(1, 1, 1);
+	    glScaled(150, 2,24);
+	    glTranslatef(0.05,0,-20);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    
+
+    //glPushMatrix();//atap
+	    //glColor3ub(1, 1, 1);
+	    //glScaled(150, 5,24);
+	   // glTranslatef(0.05,52,-20);//geser
+	  //  glutSolidCube(5);
+    //glPopMatrix();
+    
+    glPushMatrix();//atap
+	    glColor3ub(1, 1, 1);
+	    glScaled(105, 5,24);
+	    glTranslatef(-1,52,-20);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    
+    glPushMatrix();//atapkananatas
+	    glColor3ub(1, 1, 1);
+	    glScaled(50, 5,24);
+	    glTranslatef(5,45,-20);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+    glPushMatrix();//atapkananbawah
+	    glColor3ub(1, 1, 1);
+	    glScaled(50, 2,24);
+	    glTranslatef(5,45,-20);//geser
+	    glutSolidCube(5);
+    glPopMatrix();
+   
+}
+
 void pager(float x,float y,float z)
 {
  //Pager      
@@ -364,6 +661,7 @@ void display(void)
 	pohon(-500,0,-100);
 	tampil_tanaman();
 	matahari();
+	apartemen();
     glFlush();
     pager(90,33,-310);
     glFlush();
