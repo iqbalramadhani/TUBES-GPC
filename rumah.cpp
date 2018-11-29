@@ -372,7 +372,7 @@ void display(void)
 	zebracross();
 	
 	
-	mobilbiru(19,1);
+	mobilbiru(19,0);
 	mobil(19,0);
 	mobil2(x1[0],19,z1[0],r1[0]);
 	/*
@@ -2812,6 +2812,7 @@ void keyboard(unsigned char key,int x, int y)
 				gerak_mobilbiru=false;
 			}
 			break;
+/*			
 		case '1' :
 			if(gerak_mobil==true)
 				gerak_m=0;
@@ -2841,7 +2842,7 @@ void keyboard(unsigned char key,int x, int y)
 				gerak_m=2;
 			break;
 	
-			
+*/			
 	}
 	glutPostRedisplay();
 }
