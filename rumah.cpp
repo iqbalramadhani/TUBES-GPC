@@ -2614,6 +2614,10 @@ void keyboard(unsigned char key,int x, int y)
 		case '1' :
 			if(gerak_mobil==true)
 				gerak_m=0;
+			
+			else 
+				gerak_m=0;
+				
 			break;
 		case '2' :
 			if(gerak_mobil==true)	
@@ -2622,6 +2626,20 @@ void keyboard(unsigned char key,int x, int y)
 		case '3' :
 			gerak_m=2;
 			break;
+			
+		case '4' :
+			if(gerak_mobilbiru==true)
+				gerak_m=1;
+			
+			else
+				gerak_m=1;
+				
+			break;
+		case '5' :
+			if(gerak_mobilbiru==true)	
+				gerak_m=2;
+			break;
+	
 			
 	}
 	glutPostRedisplay();
@@ -2831,5 +2849,6 @@ int main(int argc, char** argv)
     glutMainLoop();
     return 0;
  }
+
 
 
