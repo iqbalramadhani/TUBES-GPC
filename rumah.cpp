@@ -370,7 +370,7 @@ void display(void)
 	for(int i=1;i<3;i++){
 		mobilbiru(19,i);	
 	}
-	for(int i=0;i<3;i++){
+	for(int i=0;i<2;i++){
 		mobil(19,i);	
 	}
 	trafficlight();
