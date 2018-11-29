@@ -361,6 +361,7 @@ void display(void)
     
     drawxy(500);
 	rumah(0,0,-90);
+	marka_jalan();
     rumah(-350,0,-90);
     Rumput(-78,1,-100);
 	jalan_tepi(-78,0,50);
@@ -403,6 +404,7 @@ void display(void)
 	tampil_kursi(0,0,0);
 	tampil_kursi2(0,0,550);
 	apartemen();
+	
     pager(90,33,-310);
 	kincir(0,20,70,-90);
     kincir(-40,20,70,90);
