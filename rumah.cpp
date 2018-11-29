@@ -4,8 +4,8 @@
 
 int maju_mundur=0,maju_mundur1=180,kiri_kanan=0;
 int keceptan_mobil=10,gerak_m=0;
-int mm[] = {-50,120,230},mm1[]={250,-350,0},kk[] = {-90,190,0}; 
-int mmb[] = {-50,120,230},mm1b[]={-150,350,150},kkb[] = {-90,190,0}; 
+int mm[] = {-50,120,230},mm1[]={250,-350,0},kk[] = {-90,190,0},x1[]={400,190},z1[]={0,115}; 
+int mmb[] = {-50,0,230},mm1b[]={-150,380,150},kkb[] = {-90,190,0},state=-1,state1=1,r1[]={0,-90}; 
 bool gerak_bus=false,gerak_mobil=false,gerak_mobilbiru=false;
 float xyz = 600,minusy=400;
 
@@ -13,13 +13,13 @@ int toleh = 25;
 void display();
 void drawxy(int);
 void pager();
-void cylinder(float rbase,float rtop,float height);
-void jalan_apartemen(float x,float y,float z);
+void cylinder(float,float,float);
+void jalan_apartemen(float,float,float);
 void kaca(float);
 void pintu(float,float,float);
 void kaca_pintu(float,float);
 void pagar_atas();
-void Rumput(float x,float y,float z);
+void Rumput(float,float,float);
 void tangga(float,float,float);
 void rumah(float,float,float);
 void trafficlight();
@@ -27,11 +27,12 @@ void rumah2();
 void jalan_tepi(float,float,float);
 void jalan_utama();
 void bus();
+void bus1(float,float,float,float);
 void marka_jalan();
 void zebracross();
 void mobil(float,int);
 void mobilbiru(float,int);
-void mobil2(float x,float y,float z);
+void mobil2(float,float,float,float);
 void mobil3(float x,float y,float z);
 void awan();
 void awan_tampil();
@@ -53,6 +54,7 @@ void tampil_kursi(float x,float y,float z);
 void tampil_kursi2(float x,float y,float z);
 void apartemen();
 void init();
+void timer(int);
 
 void blok(float tebal,int ratiol,int ratiop);
 
@@ -366,13 +368,21 @@ void display(void)
     jalan_apartemen(-78,0,350);
 	jalan_tepi(-78,0,290);
 	bus();
+	bus1(x1[1],40,z1[1],r1[1]);
 	zebracross();
+	
+	
+	mobilbiru(19,1);
+	mobil(19,0);
+	mobil2(x1[0],19,z1[0],r1[0]);
+	/*
 	for(int i=1;i<3;i++){
 		mobilbiru(19,i);	
 	}
 	for(int i=0;i<2;i++){
 		mobil(19,i);	
 	}
+	*/
 	trafficlight();
 	awan_tampil();
 	pohon(300,0,-100);
@@ -1110,6 +1120,197 @@ void bus()
 		
 	glPopMatrix();
 }
+
+void bus1(float x,float y,float z,float r)
+{
+	glPushMatrix();
+		glTranslatef(x,y,z);
+		//glTranslatef(10,0,-80);
+		glScalef(2,1.5,2);
+		glRotated(r,0,1,0);
+		glColor3f(1.0, 1.0, 1.0);
+		glBegin(GL_POLYGON);
+			glVertex3f(10,20,50);
+			glVertex3f(10,20,-50);
+			glVertex3f(10,-20,-50);
+			glVertex3f(10,-20,50);
+		glEnd();	
+		
+		
+		//kiri
+		glBegin(GL_POLYGON);
+			glVertex3f(-10,20,50);
+			glVertex3f(-10,20,-50);
+			glVertex3f(-10,-20,-50);
+			glVertex3f(-10,-20,50);
+		glEnd();	
+		
+		//atas
+		glColor3f(0.4, 1.0, 1.0);
+		glBegin(GL_POLYGON);
+			glVertex3f(10,20,50);
+			glVertex3f(10,20,-50);
+			glVertex3f(-10,20,-50);
+			glVertex3f(-10,20,50);
+		glEnd();	
+		
+		//bawah
+		glColor3f(0.4, 1.0, 1.0);
+		glBegin(GL_POLYGON);
+			glVertex3f(10,-20,50);
+			glVertex3f(10,-20,-50);
+			glVertex3f(-10,-20,-50);
+			glVertex3f(-10,-20,50);
+		glEnd(); 
+		
+		//belakang
+		glColor3f(0.4, 0.5, 1.0);
+		glBegin(GL_POLYGON);
+			glVertex3f(10,20,-50);
+			glVertex3f(10,-20,-50);
+			glVertex3f(-10,-20,-50);
+			glVertex3f(-10,20,-50);
+		glEnd();   
+		
+		//depan bawah dikit
+		glColor3f(1, 1, 0.7);
+		glBegin(GL_POLYGON);
+			glVertex3f(-10,-5,50);
+			glVertex3f(10,-5,50);
+			glVertex3f(10,-20,50);
+			glVertex3f(-10,-20,50);
+		glEnd(); 
+		
+		//depan bawah dikit
+		glColor3f(1, 1, 1);
+		glBegin(GL_POLYGON);
+			glVertex3f(10,20,50);
+			glVertex3f(-10,20,50);
+			glVertex3f(-10,-5,50);
+			glVertex3f(10,-5,50);
+		glEnd();      
+		
+		//kaca depan
+		glPushMatrix();
+			glColor3f(0.1, 0.1, 0.1);
+			glTranslatef(0.0, 8, 50);
+			glScaled(1,1,0.1);  
+			glutSolidCube(20);
+		glPopMatrix();
+		
+		//kaca kiri	
+		glPushMatrix();
+			glColor3f(0.1, 0.1, 0.1);
+			glTranslatef(10.3,8,-4);
+			glScaled(0.1,1,4);
+			//glRotated(180,0,1,0);  
+			glutSolidCube(20);
+		glPopMatrix();	
+		
+		//kaca kanan	
+		glPushMatrix();
+			glColor3f(0.1, 0.1, 0.1);
+			glTranslatef(-10.3,8,-4);
+			glScaled(0.1,1,4);
+			//glRotated(180,0,1,0);  
+			glutSolidCube(20);
+		glPopMatrix();
+		
+		//pintu kaca kiri
+		glPushMatrix();
+			glColor3f(0.1, 0.1, 0.1);
+			glTranslatef(10.8,8,43);
+			glScaled(0.1,1,0.4);
+			//glRotated(180,0,1,0);  
+			glutSolidCube(20);
+		glPopMatrix();
+		
+		//pintu kaca kanan
+		glPushMatrix();
+			glColor3f(0.1, 0.1, 0.1);
+			glTranslatef(-10.8,8,43);
+			glScaled(0.1,1,0.4);
+			//glRotated(180,0,1,0);  
+			glutSolidCube(20);
+		glPopMatrix();
+		
+		glBegin(GL_LINES);
+			glColor3f(0, 0, 0);
+			glVertex3f(-10,20,45.5);
+			glVertex3f(-10,-20,45.5);
+		glEnd();
+		
+		//roda belakang kiri
+		glPushMatrix();
+			glTranslatef(10,-20,-30);
+			glRotated(90,0,1,0);
+			glColor3f(0, 0, 0);
+			cylinder(6,6,2);
+			glTranslatef(0,0,-5);
+			cylinder(6,6,2);
+			glColor3f(1, 1, 1);
+			glTranslatef(0,0,7);
+			cylinder(3,3,1);
+		glPopMatrix();
+		
+		//roda belakang kanan
+		glPushMatrix();
+			glTranslatef(-10,-20,-30);
+			glRotated(90,0,1,0);
+			glColor3f(0, 0, 0);
+			cylinder(6,6,2);
+			glTranslatef(0,0,5);
+			cylinder(6,6,2);
+			glColor3f(1, 1, 1);
+			glTranslatef(0,0,-7);
+			cylinder(3,3,1);
+		glPopMatrix();
+		
+		//roda depan kanan
+		glPushMatrix();
+			glTranslatef(-10,-20,30);
+			glRotated(90,0,1,0);
+			glColor3f(0, 0, 0);
+			cylinder(6,6,2);
+			glColor3f(1, 1, 1);
+			glTranslatef(0,0,-3);
+			cylinder(3,3,1);
+		glPopMatrix();		
+		
+		//roda depan kiri
+		glPushMatrix();
+			glTranslatef(10,-20,30);
+			glRotated(90,0,1,0);
+			glColor3f(0, 0, 0);
+			cylinder(6,6,2);
+			glColor3f(1, 1, 1);
+			glTranslatef(0,0,3);
+			cylinder(3,3,1);
+		glPopMatrix();	
+		
+		//lambu depan
+		glPushMatrix();
+			glColor3f(0.5, 0.5, 0.5);
+			glTranslatef(-5,-10,50);
+			glutSolidCube(4);
+			glColor3f(1, 1, 0);
+			glTranslatef(-3,0,0);
+			glutSolidCube(4);
+		glPopMatrix();
+		
+		//lambu depan
+		glPushMatrix();
+			glColor3f(0.5, 0.5, 0.5);
+			glTranslatef(5,-10,50);
+			glutSolidCube(4);
+			glColor3f(1, 1, 0);
+			glTranslatef(3,0,0);
+			glutSolidCube(4);
+		glPopMatrix();
+		
+	glPopMatrix();
+}
+
 
 void apartemen()
 {
@@ -2752,6 +2953,110 @@ void mobil(float y,int i)
 
 }
 
+void mobil2(float x,float y,float z,float r)
+{	
+ 	glPushMatrix();
+ 		glTranslatef(x,y,z);
+		glScaled(1.3,1.3,1.3);
+		glRotatef(r, 0.0f, 1.0f, 0.0f);
+		glPushMatrix();//body
+			//glpushmatrix();
+			glColor3f(1.0,0.0,0.0);
+			blok(10, 3, 2);
+			
+			glTranslatef(0, 9, 0);
+			blok(10, 3, 2);
+			glTranslatef(10, -10,0);
+			blok(10, 5.5, 2);
+			glRotatef(-35, 0, 0, 15);
+			glTranslatef(0, 7,0);
+			blok(10, 2, 2);
+			glTranslatef(2, 4.9,-2.5);
+			glColor3f(0.9,0.9,0.9);// warna kaca
+			blok(0.5, 20, 31);
+			
+			glRotatef(180, 45, -45, 0);
+			//glTranslatef(0, 10,0);
+			//blok(3, 2, 5);
+			//cylinder(2,2,30);
+			//glTranslatef(-10, -10,0);
+			//glRotatef(90, 45,-45, 0);
+			//cylinder(2,2,30);
+			//glRotatef(90, -45, 90, 90);
+			//blok(5, 3, 2);
+			
+		glPopMatrix();	
+			
+		glPushMatrix();//roda
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(20, -8,-7);
+			cylinder(5, 5,3);
+			
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(-20, 8,7);
+			glTranslatef(-5, -8,-7);
+			cylinder(5, 5,3);
+			
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(5, 8,7);
+			glRotatef(180,0,180,0);
+			glTranslatef(3,-8,-17);
+			cylinder(5, 5,3);
+			
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(-3,8,17);
+			glTranslatef(-22,-8,-17);
+			cylinder(5, 5,3);
+			
+			glColor3f(1.0,1.0,1.0);
+			
+			glRotatef(90,1,0,0);
+			glTranslatef(8, 2.5,-15);
+			blok(2, 4, 5);
+			
+			
+			glRotatef(90,0,1,0);
+			glTranslatef(0,-0.2,7);
+			blok(2, 4, 8);
+			
+			
+			glRotatef(0,0,0,0);
+			glTranslatef(0,19.2,0);
+			blok(2, 4, 8);
+			
+			glRotatef(90,0,1,0);
+			glTranslatef(7, 0,-8);
+			blok(2, 4, 5);
+			
+			glColor3f(9.9,9.9,0.0);//lampu
+			glRotatef(90,0,1,0);
+			glTranslatef(0,-3,20);
+			cylinder(2, 2,3);
+			
+			glColor3f(9.9,9.9,0.0);//lampu
+			glRotatef(0,0,0,0);
+			glTranslatef(0,-12,0);
+			cylinder(2, 2,3);
+			
+			glColor3f(0.0,0.0,0.0);//knalpot
+			glRotatef(0,0,0,0);
+			glTranslatef(0,0,-52);
+			cylinder(1, 1,3);
+			
+			glColor3f(1.0,1.0,1.0);
+			glRotatef(90,1,0,0);
+			glTranslatef(-8,3.5,-12);
+			blok(2, 4, 8);
+			
+			glColor3f(9.0,0.0,0.0);//lampu atas
+			glRotatef(0,0,0,0);
+			glTranslatef(-8,28,0);
+			cylinder(1, 1,12);
+		glPopMatrix();
+	glPopMatrix();
+}
+
+
 void blok(float tebal,int ratiol,int ratiop)
 {
  float i,j;
@@ -2794,9 +3099,58 @@ void reshape (int w, int h)
 	glOrtho(-xyz, xyz, -minusy, xyz, -xyz, xyz); 
 	glMatrixMode(GL_MODELVIEW); 
 	glLoadIdentity(); 
-	gluLookAt (0, 5, 0, 0, 0, 100.0, 0.0, 1.0, 0.0); 
-	//gluLookAt (0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 10.0, 0.0); 
+	gluLookAt (5, 4, 5, 0, 0, 0.0, 0.0, 1.0, 0.0);
 } 
+
+void timer(int a)
+{
+	glutPostRedisplay();
+	glutTimerFunc(1,timer,0);
+	
+	//mobil
+	switch(state){
+		case 1 :
+			if(x1[0]<700){
+				x1[0] += 10;
+				r1[0]=0;
+				z1[0]=180;
+			}else{
+				state = -1;
+			}		
+		break;
+		case -1 :
+			if(x1[0]>-700){
+				r1[0]=180;
+				x1[0]-= 10;
+				z1[0]=170;
+			}else{
+				state = 1;
+			}		
+		break;
+	}
+	
+	//bus
+	switch(state1){
+		case 1 :
+			if(x1[1]<700){
+				x1[1] += 5;
+				r1[1]=90;
+				z1[1]=230;
+			}else{
+				state1 = -1;
+			}		
+		break;
+		case -1 :
+			if(x1[1]>-700){
+				r1[1]=-90;
+				x1[1]-=5;
+				z1[1]=115;
+			}else{
+				state1 = 1;
+			}		
+		break;
+	}
+}
 
 void init(void)
 {
@@ -2846,9 +3200,10 @@ int main(int argc, char** argv)
     init();
     glutDisplayFunc(display);
     glutReshapeFunc(reshape); 
+    glutTimerFunc(0,timer,0);
     glutMainLoop();
     return 0;
  }
 
 
-
+                   
