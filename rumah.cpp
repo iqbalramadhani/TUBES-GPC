@@ -2833,7 +2833,7 @@ void keyboard(unsigned char key,int x, int y)
 				gerak_m=1;
 			
 			else
-				gerak_m=1;
+				gerak_m=0;
 				
 			break;
 		case '5' :
