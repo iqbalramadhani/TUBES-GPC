@@ -4,8 +4,9 @@
 
 int maju_mundur=0,maju_mundur1=180,kiri_kanan=0;
 int keceptan_mobil=10,gerak_m=0;
-int mm[] = {-50,230,230},mm1[]={250,250,0},kk[] = {-90,190,0}; 
-bool gerak_bus=false,gerak_mobil=false;
+int mm[] = {-50,120,230},mm1[]={250,-350,0},kk[] = {-90,190,0}; 
+int mmb[] = {-50,120,230},mm1b[]={-150,350,150},kkb[] = {-90,190,0}; 
+bool gerak_bus=false,gerak_mobil=false,gerak_mobilbiru=false;
 float xyz = 600,minusy=400;
 
 int toleh = 25;
@@ -29,6 +30,7 @@ void bus();
 void marka_jalan();
 void zebracross();
 void mobil(float,int);
+void mobilbiru(float,int);
 void mobil2(float x,float y,float z);
 void mobil3(float x,float y,float z);
 void awan();
@@ -356,8 +358,8 @@ void display(void)
 	glColorMaterial(GL_FRONT, GL_DIFFUSE); //parameter-parameter fungsi warna material 
     
     drawxy(500);
-	rumah(0,0,-40);
-    rumah(-250,0,-40);
+	rumah(0,0,-90);
+    rumah(-350,0,-90);
     Rumput(-78,1,-100);
 	jalan_tepi(-78,0,50);
     jalan_utama();
@@ -365,6 +367,9 @@ void display(void)
 	jalan_tepi(-78,0,290);
 	bus();
 	zebracross();
+	for(int i=1;i<3;i++){
+		mobilbiru(19,i);	
+	}
 	for(int i=0;i<3;i++){
 		mobil(19,i);	
 	}
@@ -2410,6 +2415,113 @@ void keyboard_s(int key,int x,int y)
 	}
 	glutPostRedisplay();
 }
+void mobilbiru(float y,int i)
+{
+	glPushMatrix();
+ 	glPushMatrix();
+	  	glTranslatef(mm1b[i],y,mmb[i]);// besar kecilnya mobil
+		glScaled(1.3,1.3,1.3);
+		glRotatef(kkb[i], 0.0f, 1.0f, 0.0f);
+		glPushMatrix();//body
+			//glpushmatrix();
+			glColor3f(0.0,0.0,9.0);
+			blok(10, 3, 2);
+			
+			glTranslatef(0, 9, 0);
+			blok(10, 3, 2);
+			glTranslatef(10, -10,0);
+			blok(10, 5.5, 2);
+			glRotatef(-35, 0, 0, 15);
+			glTranslatef(0, 7,0);
+			blok(10, 2, 2);
+			glTranslatef(2, 4.9,-2.5);
+			glColor3f(0.9,0.9,0.9);// warna kaca
+			blok(0.5, 20, 31);
+			
+			glRotatef(180, 45, -45, 0);
+			//glTranslatef(0, 10,0);
+			//blok(3, 2, 5);
+			//cylinder(2,2,30);
+			//glTranslatef(-10, -10,0);
+			//glRotatef(90, 45,-45, 0);
+			//cylinder(2,2,30);
+			//glRotatef(90, -45, 90, 90);
+			//blok(5, 3, 2);
+			
+		glPopMatrix();	
+			
+		glPushMatrix();//roda
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(20, -8,-7);
+			cylinder(5, 5,3);
+			
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(-20, 8,7);
+			glTranslatef(-5, -8,-7);
+			cylinder(5, 5,3);
+			
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(5, 8,7);
+			glRotatef(180,0,180,0);
+			glTranslatef(3,-8,-17);
+			cylinder(5, 5,3);
+			
+			glColor3f(0.0,0.0,0.0);
+			glTranslatef(-3,8,17);
+			glTranslatef(-22,-8,-17);
+			cylinder(5, 5,3);
+			
+			glColor3f(1.0,1.0,1.0);
+			
+			glRotatef(90,1,0,0);
+			glTranslatef(8, 2.5,-15);
+			blok(2, 4, 5);
+			
+			
+			glRotatef(90,0,1,0);
+			glTranslatef(0,-0.2,7);
+			blok(2, 4, 8);
+			
+			
+			glRotatef(0,0,0,0);
+			glTranslatef(0,19.2,0);
+			blok(2, 4, 8);
+			
+			glRotatef(90,0,1,0);
+			glTranslatef(7, 0,-8);
+			blok(2, 4, 5);
+			
+			glColor3f(9.9,9.9,0.0);//lampu
+			glRotatef(90,0,1,0);
+			glTranslatef(0,-3,20);
+			cylinder(2, 2,3);
+			
+			glColor3f(9.9,9.9,0.0);//lampu
+			glRotatef(0,0,0,0);
+			glTranslatef(0,-12,0);
+			cylinder(2, 2,3);
+			
+			glColor3f(0.0,0.0,0.0);//knalpot
+			glRotatef(0,0,0,0);
+			glTranslatef(0,0,-52);
+			cylinder(1, 1,3);
+			
+			glColor3f(1.0,1.0,1.0);
+			glRotatef(90,1,0,0);
+			glTranslatef(-8,3.5,-12);
+			blok(2, 4, 8);
+			
+			glColor3f(9.0,0.0,0.0);//lampu atas
+			glRotatef(0,0,0,0);
+			glTranslatef(-8,28,0);
+			cylinder(1, 1,12);
+		glPopMatrix();
+	glPopMatrix();
+	glPopMatrix();
+ //glFlush();
+ //glutSwapBuffers();
+}
+
 
 void keyboard(unsigned char key,int x, int y)
 {
@@ -2423,6 +2535,9 @@ void keyboard(unsigned char key,int x, int y)
 			}else if(gerak_mobil==true){
 				mm1[gerak_m]-=keceptan_mobil;
 				kk[gerak_m]=-180;
+		    }else if(gerak_mobilbiru==true){
+				mm1b[gerak_m]-=keceptan_mobil;
+				kkb[gerak_m]=-180;
 			}else{
 				glTranslatef(-10,0,0);
 			}
@@ -2434,6 +2549,9 @@ void keyboard(unsigned char key,int x, int y)
 			}else if(gerak_mobil==true){
 				mm1[gerak_m]+=keceptan_mobil;
 				kk[gerak_m]=0;
+		 	}else if(gerak_mobilbiru==true){
+				mm1b[gerak_m]+=keceptan_mobil;
+				kkb[gerak_m]=0;
 			}else{
 				glTranslatef(10,0,0);
 			}
@@ -2445,6 +2563,9 @@ void keyboard(unsigned char key,int x, int y)
 			}else if(gerak_mobil==true){
 				mm[gerak_m]+=keceptan_mobil;
 				kk[gerak_m]=-90;
+			}else if(gerak_mobilbiru==true){
+			mmb[gerak_m]+=keceptan_mobil;
+				kkb[gerak_m]=-90;
 			}else{
 				glTranslatef(0,0,-10);	
 			}
@@ -2458,6 +2579,9 @@ void keyboard(unsigned char key,int x, int y)
 			}else if(gerak_mobil==true){
 				mm[gerak_m]-=keceptan_mobil;
 				kk[gerak_m]=90;
+			}else if(gerak_mobilbiru==true){
+				mmb[gerak_m]-=keceptan_mobil;
+				kkb[gerak_m]=90;
 			}else{
 				glTranslatef(0,0,10);
 			}	
@@ -2479,6 +2603,12 @@ void keyboard(unsigned char key,int x, int y)
 				gerak_mobil=true;
 			}else{
 				gerak_mobil=false;
+			}
+		case 'v':
+				if(gerak_mobilbiru==false){
+				gerak_mobilbiru=true;
+			}else{
+				gerak_mobilbiru=false;
 			}
 			break;
 		case '1' :
@@ -2505,7 +2635,7 @@ void mobil(float y,int i)
 		glRotatef(kk[i], 0.0f, 1.0f, 0.0f);
 		glPushMatrix();//body
 			//glpushmatrix();
-			glColor3f(0.0,0.0,9.0);
+			glColor3f(1.0,0.0,0.0);
 			blok(10, 3, 2);
 			
 			glTranslatef(0, 9, 0);
@@ -2701,3 +2831,4 @@ int main(int argc, char** argv)
     glutMainLoop();
     return 0;
  }
+
