@@ -55,6 +55,7 @@ void tampil_kursi2(float x,float y,float z);
 void apartemen();
 void init();
 void timer(int);
+void wc_umum(float x, float y,float z);
 
 void blok(float tebal,int ratiol,int ratiop);
 
@@ -404,6 +405,7 @@ void display(void)
 	tampil_kursi(0,0,0);
 	tampil_kursi2(0,0,550);
 	apartemen();
+	wc_umum(0,0,0);
 	
     pager(90,33,-310);
 	kincir(0,20,70,-90);
@@ -1750,6 +1752,50 @@ glPushMatrix();//banner
          glPopMatrix();
    
 }
+
+void wc_umum(float x, float y, float z)
+{
+	///wcumum
+    glPushMatrix();
+	    glColor3ub(0 ,0 ,255);
+	    glScaled(3, 7,3);
+	    glTranslatef(-160,5,150);
+	    glutSolidCube(10);
+    glPopMatrix();
+    glPushMatrix();//pintu
+	    glColor3ub(255 ,255 ,255);
+	    glScaled(2.5, 5,1);
+	    glTranslatef(-192,7,439);
+	    glutSolidCube(10);
+    glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(255 ,255 ,255);
+	    glScaled(3, 1,3);
+	    glTranslatef(-160,70,150);
+	    glutSolidCube(10);
+    glPopMatrix();
+    
+    ///wcumum
+    glPushMatrix();
+	    glColor3ub(0 ,0 ,255);
+	    glScaled(3, 7,3);
+	    glTranslatef(-180,5,150);
+	    glutSolidCube(10);
+    glPopMatrix();
+    glPushMatrix();//pintu
+	    glColor3ub(255 ,255 ,255);
+	    glScaled(2.5, 5,1);
+	    glTranslatef(-216,7,439);
+	    glutSolidCube(10);
+    glPopMatrix();
+    glPushMatrix();
+	    glColor3ub(255 ,255 ,255);
+	    glScaled(3, 1,3);
+	    glTranslatef(-180,70,150);
+	    glutSolidCube(10);
+    glPopMatrix();
+}
+
 void jalan_apartemen(float x,float y,float z)
 {
     glPushMatrix();
